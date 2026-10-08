@@ -1,5 +1,9 @@
 # Deadlock Flashcard
 
+> [!WARNING]
+>
+> This is a vibe-coded personal project.
+
 Practice Deadlock item stats by guessing the missing property in an item tooltip. Each game has 15 questions, and your progress stays in your browser.
 
 Built with React, TypeScript, Vite, and [`@deadlock-api/ui-react`](https://ui.deadlock-api.com/).

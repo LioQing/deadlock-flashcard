@@ -17,14 +17,16 @@ npm install
 npm run dev
 ```
 
-Open the URL printed by Vite, normally `http://127.0.0.1:5173`.
+Open the URL printed by Vite, normally `http://127.0.0.1:5173/deadlock-flashcard/`.
 
 ```sh
 npm run build
 npm run preview
 ```
 
-The production site is in `dist/`. Deploy it to any static web host. No backend, API key, or environment variables are needed.
+Open the preview URL printed by Vite, normally `http://127.0.0.1:4173/deadlock-flashcard/`.
+
+The production site is in `dist/`. The `base` in `vite.config.ts` is `/deadlock-flashcard/`, matching the GitHub Pages project path. For another hosting path or repository name, update `base` before building. Use `/` when hosting at the domain root. No backend, API key, or environment variables are needed.
 
 ## Gameplay
 

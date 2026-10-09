@@ -296,3 +296,46 @@ test('reduced motion keeps the calendar readable without scrolling animation', a
   await expect(page.locator('.marquee-track')).toHaveCount(0);
   await expect(page.locator('.pin-spacer')).toHaveCount(0);
 });
+
+test('supporting text stays readable across desktop and mobile screens', async ({ page }) => {
+  await page.goto('/');
+  const readable = async (selectors: string, minimum: number) => {
+    const sizes = await page.locator(selectors).evaluateAll(elements => elements.map(element => ({
+      text: element.textContent,
+      size: parseFloat(getComputedStyle(element).fontSize),
+    })));
+    expect(sizes.length).toBeGreaterThan(0);
+    for (const { text, size } of sizes) expect(size, text ?? selectors).toBeGreaterThanOrEqual(minimum);
+  };
+  const fits = async () => {
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    for (const selector of ['.site-header', '.answer-panel', '.overview-score']) {
+      const element = page.locator(selector);
+      if (await element.count()) expect(await element.evaluate(node => node.scrollWidth <= node.clientWidth), selector).toBe(true);
+    }
+  };
+  for (const width of [1440, 1024, 768, 390, 320]) {
+    await page.setViewportSize({ width, height: 900 });
+    await readable('.overview-heading p, .dashboard-actions .button', 16);
+    await readable('.calendar-months span, .weekday-labels span, .quiet-badge, .overview-score p, .panel-footnote, .main-footer', 14);
+    await fits();
+  }
+  await page.getByRole('button', { name: 'Practice', exact: true }).click();
+  await readable('.practice-launch-copy p, .flow-content-inner > p', 16);
+  await readable('.practice-deck span, .practice-fineprint', 14);
+  await page.getByRole('button', { name: 'Start a game', exact: true }).click();
+  await expect(page.locator('.answer-choice')).toHaveCount(4);
+  for (const width of [1440, 1024, 768, 390, 320]) {
+    await page.setViewportSize({ width, height: 900 });
+    await readable('.answer-panel > p:not(.answer-instruction):not(.keyboard-note), .answer-choice, .unsure-button', 16);
+    await readable('.answer-instruction, .answer-action, .unsure-note, .keyboard-note, .category-badge, .item-stage-caption', 14);
+    await fits();
+  }
+  await page.getByRole('button', { name: /Not sure No points/ }).click();
+  await readable('.feedback-card p', 16);
+  await readable('.feedback-title', 14);
+  await page.getByRole('button', { name: 'History', exact: true }).click();
+  await readable('.history-tabs button', 16);
+  await readable('.filter-bar button, .history-card-metrics > span, .history-card-footer', 14);
+  await fits();
+});

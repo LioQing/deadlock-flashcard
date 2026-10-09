@@ -802,6 +802,55 @@ kbd { background: var(--surface-soft); border-color: var(--border); }
   .daily-totals tr { background: var(--surface-soft); }
 }
 
+/* Keep supporting text readable without enlarging the display headings. */
+p, .site-nav button, .button, .session-name strong, .empty-history strong,
+.page-heading p, .starter-copy > p, .answer-panel > p,
+.answer-choice, .unsure-button, .feedback-card p, .study-rules p,
+.data-table, .day-game .data-table td, .guess-table td, .day-game .guess-table td,
+.history-tabs button, .summary-hero p, .confirm-dialog p, .dialog-actions .button,
+.resume-context strong, .practice-launch-copy p, .flow-content-inner > p, .session-options p,
+.day-option, .day-empty p, .error-banner strong, .error-banner p, .help-panel p {
+  font-size: 16px;
+}
+small, .brand small, .local-badge, .text-button, .starter-actions .text-button,
+.quiet-badge, .study-topline .quiet-badge,
+.paper-preview > div, .paper-preview small, .hero-figure figcaption,
+.overview-score p, .cumulative-score small, .panel-heading > .muted,
+.calendar-months, .weekday-labels, .calendar-footer, .calendar-legend,
+.calendar-selection .text-button, .breakdown-row, .breakdown-row small,
+.panel-footnote, .session-name small, .session-answers, .session-score small,
+.empty-history p, .main-footer, .main-footer > span:last-child,
+.game-score > span, .progress-label, .item-stage-label, .category-badge,
+.item-stage-caption, .answer-panel > p.answer-instruction, kbd, .keyboard-note kbd,
+.answer-action, .unsure-note, .feedback-title, .study-footer, .penalty-tag,
+.data-table th, .data-table td small, .history-tabs span, .status-badge,
+.privacy-note, .summary-score span, .summary-stats > span, .resume-context span,
+.practice-launch-copy > small, .practice-deck span, .guide-heading p,
+.flow-example, .practice-scoring, .practice-fineprint, .session-options summary,
+.history-local, .filter-bar button, .history-game-card > small,
+.history-card-metrics > span, .history-card-metrics strong small, .history-card-footer,
+.day-rail-heading > span, .day-option small, .day-rail-empty,
+.day-detail .panel-heading p, .day-game-heading,
+.guess-table td[data-label]::before, .daily-totals td::before {
+  font-size: 14px;
+}
+.keyboard-note { font-size: 14px!important; }
+.overview-score h2, .panel-heading h2, .day-rail-heading h2 { font-size: 18px; }
+.calendar { padding-top: 30px; padding-left: 36px; min-width: 680px; }
+.calendar-months { left: 36px; }
+.weekday-labels { top: 30px; }
+.unsure-note { max-width: 100px; }
+.answer-choice, .unsure-button { min-height: 64px; }
+.keyboard-note kbd { height: 24px; min-width: 22px; }
+.main-footer > span, .calendar-selection { min-width: 0; }
+@media (max-width: 620px) {
+  .breakdown-rows { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+  .study-topline { flex-wrap: wrap; gap: 12px; }
+  .unsure-button { flex-wrap: wrap; }
+  .unsure-note { order: 1; flex-basis: 100%; max-width: none; padding-left: 32px; text-align: left; }
+  .main-footer { grid-template-columns: minmax(0, 1fr) auto; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto!important; transition: none!important; animation: none!important; }
 }
